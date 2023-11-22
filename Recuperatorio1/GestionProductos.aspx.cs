@@ -18,7 +18,6 @@ namespace Recuperatorio1
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            SQLDataSourceCRUDproductos.InsertParameters["descripcion"].DefaultValue = TextBox1.Text;
             int result = SQLDataSourceCRUDproductos.Insert();
             if (result > 0)
             {
@@ -44,20 +43,9 @@ namespace Recuperatorio1
             }
         }
 
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataView dv = (DataView)SQLDataSourceSelectDropDown.Select(DataSourceSelectArguments.Empty);
-            if (dv != null && dv.Count > 0)
-            {
-                DataRowView row = dv[0];
-                TextBox1.Text = row["descripcion"].ToString();
-                DropDownList1.SelectedValue = row["id"].ToString();
-            }
-        }
-
         protected void Button3_Click(object sender, EventArgs e)
         {
-            SQLDataSourceCRUDproductos.UpdateParameters["idCuenta"].DefaultValue = DropDownList1.SelectedValue;
+            SQLDataSourceCRUDproductos.UpdateParameters["id"].DefaultValue = DropDownList1.SelectedValue;
             int result = SQLDataSourceCRUDproductos.Update();
 
             if (result > 0)
@@ -69,5 +57,17 @@ namespace Recuperatorio1
                 Label1.Text = "No se actualizo el producto.";
             }
         }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataView dv = (DataView)SQLDataSourceSelectDropDown.Select(DataSourceSelectArguments.Empty);
+            if (dv != null && dv.Count > 0)
+            {
+                DataRowView row = dv[0];
+                TextBox1.Text = row["descripcion"].ToString();
+                DropDownList1.SelectedValue = row["id"].ToString();
+            }
+        }
+
     }
 }
