@@ -15,30 +15,35 @@
             Gestion de Productos<br />
             <br />
             <asp:TextBox ID="TextBox1" runat="server" placeholder="Descripcion del producto" Width="245px"></asp:TextBox>
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Agregar" Width="162px" />
-&nbsp;<asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Actualizar" Width="141px" />
+            &nbsp;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Agregar" Width="162px" />
+&nbsp;<br />
             <br />
+            <asp:ListBox ID="ListBox1" runat="server" Height="104px" OnSelectedIndexChanged="ListBox1_SelectedIndexChanged" Width="249px" AutoPostBack="True" DataSourceID="SQLDataSourceCRUDproductos" DataTextField="descripcion" DataValueField="id"></asp:ListBox>
             <asp:Label ID="Label1" runat="server"></asp:Label>
             <br />
-            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataSourceID="SQLDataSourceSelectDropDown" DataTextField="descripcion" DataValueField="id" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="250px">
-            </asp:DropDownList>
-            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Eliminar" Width="163px" />
+            <asp:TextBox ID="TextBox2" runat="server" Width="239px"></asp:TextBox>
+&nbsp;<asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Eliminar" Width="163px" />
+            &nbsp;<asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Actualizar" Width="141px" />
             <br />
             <br />
             <asp:SqlDataSource ID="SQLDataSourceCRUDproductos" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" DeleteCommand="DELETE FROM [productos] WHERE [id] = @id" InsertCommand="INSERT INTO [productos] ([descripcion]) VALUES (@descripcion)" ProviderName="<%$ ConnectionStrings:Recuperatorio1ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [productos]" UpdateCommand="UPDATE [productos] SET [descripcion] = @descripcion WHERE [id] = @id">
                 <DeleteParameters>
-                    <asp:ControlParameter ControlID="DropDownList1" Name="id" PropertyName="SelectedValue" Type="Int32" />
+                    <asp:ControlParameter ControlID="ListBox1" Name="id" PropertyName="SelectedValue" Type="Int32" />
                 </DeleteParameters>
                 <InsertParameters>
                     <asp:ControlParameter ControlID="TextBox1" Name="descripcion" PropertyName="Text" Type="String" />
                 </InsertParameters>
                 <UpdateParameters>
-                    <asp:ControlParameter ControlID="DropDownList1" Name="descripcion" PropertyName="SelectedValue" Type="String" />
-                    <asp:Parameter Name="id" Type="Int32" />
+                    <asp:ControlParameter ControlID="TextBox2" Name="descripcion" PropertyName="Text" Type="String" />
+                    <asp:ControlParameter ControlID="ListBox1" Name="id" PropertyName="SelectedValue" Type="Int32" />
                 </UpdateParameters>
             </asp:SqlDataSource>
             <br />
-            <asp:SqlDataSource ID="SQLDataSourceSelectDropDown" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" SelectCommand="SELECT * FROM [productos]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SQLDataSourceSelectListBox" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" SelectCommand="SELECT * FROM [productos] WHERE ([id] = @id)">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="ListBox1" Name="id" PropertyName="SelectedValue" Type="Int32" />
+                </SelectParameters>
+            </asp:SqlDataSource>
         </div>
     </form>
 </body>

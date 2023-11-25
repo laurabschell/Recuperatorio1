@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
@@ -35,39 +36,39 @@ namespace Recuperatorio1
             int result = SQLDataSourceCRUDproductos.Delete();
             if (result > 0)
             {
-                Label1.Text = "Se borro el producto.";
+                Label1.Text = "Se eliminó el producto.";
+                TextBox2.Text = "";
             }
             else
             {
-                Label1.Text = "No se borro el producto.";
+                Label1.Text = "No se eliminó el producto.";
             }
         }
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            SQLDataSourceCRUDproductos.UpdateParameters["id"].DefaultValue = DropDownList1.SelectedValue;
+            SQLDataSourceCRUDproductos.UpdateParameters["id"].DefaultValue = ListBox1.SelectedValue;
             int result = SQLDataSourceCRUDproductos.Update();
 
             if (result > 0)
             {
-                Label1.Text = "Se actualizo el producto.";
+                Label1.Text = "Se actualizó el producto.";
+                TextBox2.Text = "";
             }
             else
             {
-                Label1.Text = "No se actualizo el producto.";
+                Label1.Text = "No se actualizó el producto.";
             }
         }
 
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataView dv = (DataView)SQLDataSourceSelectDropDown.Select(DataSourceSelectArguments.Empty);
-            if (dv != null && dv.Count > 0)
+            SQLDataSourceSelectListBox.DataSourceMode = SqlDataSourceMode.DataReader;
+            SqlDataReader reader = (SqlDataReader)SQLDataSourceSelectListBox.Select(DataSourceSelectArguments.Empty);
+            if (reader.Read())
             {
-                DataRowView row = dv[0];
-                TextBox1.Text = row["descripcion"].ToString();
-                DropDownList1.SelectedValue = row["id"].ToString();
+                TextBox2.Text = reader["descripcion"].ToString();
             }
         }
-
     }
 }
