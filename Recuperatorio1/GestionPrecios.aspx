@@ -23,13 +23,14 @@
              <asp:Label ID="Label1" runat="server"></asp:Label>
              <br />
              <br />
-&nbsp;<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id" DataSourceID="SqlDataSourceCRUDprecios" ForeColor="#333333" GridLines="None" Width="750px">
+&nbsp;<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id" DataSourceID="SqlDataSourceCRUDprecios" ForeColor="#333333" GridLines="None" Width="874px">
                  <AlternatingRowStyle BackColor="White" />
                  <Columns>
                      <asp:BoundField DataField="id" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="id" />
                      <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
+                     <asp:BoundField DataField="idProducto" SortExpression="idProducto" />
+                     <asp:BoundField DataField="descripcion" HeaderText="Producto" SortExpression="descripcion" />
                      <asp:BoundField DataField="monto" HeaderText="Monto" SortExpression="monto" />
-                     <asp:BoundField DataField="idProducto" HeaderText="idProducto" SortExpression="idProducto" />
                      <asp:CommandField ButtonType="Button" CancelText="Cancelar" DeleteText="Eliminar" EditText="Editar" ShowDeleteButton="True" ShowEditButton="True" UpdateText="Actualizar" />
                  </Columns>
                  <EditRowStyle BackColor="#7C6F57" />
@@ -45,7 +46,7 @@
              </asp:GridView>
              <br />
              <br />
-             <asp:SqlDataSource ID="SqlDataSourceCRUDprecios" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" DeleteCommand="DELETE FROM [precios] WHERE [id] = @id" InsertCommand="INSERT INTO [precios] ([fecha], [monto], [idProducto]) VALUES (@fecha, @monto, @idProducto)" SelectCommand="SELECT * FROM [precios]" UpdateCommand="UPDATE [precios] SET [fecha] = @fecha, [monto] = @monto, [idProducto] = @idProducto WHERE [id] = @id">
+             <asp:SqlDataSource ID="SqlDataSourceCRUDprecios" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" DeleteCommand="DELETE FROM [precios] WHERE [id] = @id" InsertCommand="INSERT INTO [precios] ([fecha], [monto], [idProducto]) VALUES (@fecha, @monto, @idProducto)" SelectCommand="SELECT precios.id, precios.fecha, precios.monto, precios.idProducto, productos.descripcion FROM precios INNER JOIN productos ON precios.idProducto = productos.id" UpdateCommand="UPDATE [precios] SET [fecha] = @fecha, [monto] = @monto, [idProducto] = @idProducto WHERE [id] = @id">
                  <DeleteParameters>
                      <asp:Parameter Name="id" Type="Int32" />
                  </DeleteParameters>
