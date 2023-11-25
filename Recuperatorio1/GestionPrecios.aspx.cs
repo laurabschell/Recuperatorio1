@@ -32,27 +32,8 @@ namespace Recuperatorio1
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            int result = SqlDataSourceCRUDprecios.Delete();
-            if (result > 0)
-            {
-                Label1.Text = "Se borro el precio.";
-            }
-            else
-            {
-                Label1.Text = "No se borro el precio.";
-            }
+            
         }
 
-        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataView dv = (DataView)SqlDataSourceDropDownPrecios.Select(DataSourceSelectArguments.Empty);
-            if (dv != null && dv.Count > 0)
-            {
-                DataRowView row = dv[0];
-                TextBox1.Text = row["fecha"].ToString();
-                TextBox2.Text = row["monto"].ToString();
-                DropDownList1.SelectedValue = row["idProducto"].ToString();
-            }
-        }
     }
 }

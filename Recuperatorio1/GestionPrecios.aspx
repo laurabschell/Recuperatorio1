@@ -19,13 +19,30 @@
         &nbsp;<asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceDropDownProductos" DataTextField="descripcion" DataValueField="id" Width="204px">
              </asp:DropDownList>
 &nbsp;<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Agregar" Width="167px" />
-&nbsp;<asp:Button ID="Button2" runat="server" Text="Actualizar" Width="147px" />
-             <br />
+&nbsp;<br />
              <asp:Label ID="Label1" runat="server"></asp:Label>
              <br />
-             <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True" DataSourceID="SqlDataSourceDropDownPrecios" DataTextField="monto" DataValueField="id" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" Width="240px">
-             </asp:DropDownList>
-&nbsp;<asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Eliminar" Width="171px" />
+             <br />
+&nbsp;<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id" DataSourceID="SqlDataSourceCRUDprecios" ForeColor="#333333" GridLines="None" Width="750px">
+                 <AlternatingRowStyle BackColor="White" />
+                 <Columns>
+                     <asp:BoundField DataField="id" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="id" />
+                     <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
+                     <asp:BoundField DataField="monto" HeaderText="Monto" SortExpression="monto" />
+                     <asp:BoundField DataField="idProducto" HeaderText="idProducto" SortExpression="idProducto" />
+                     <asp:CommandField ButtonType="Button" CancelText="Cancelar" DeleteText="Eliminar" EditText="Editar" ShowDeleteButton="True" ShowEditButton="True" UpdateText="Actualizar" />
+                 </Columns>
+                 <EditRowStyle BackColor="#7C6F57" />
+                 <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                 <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                 <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                 <RowStyle BackColor="#E3EAEB" />
+                 <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                 <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                 <SortedAscendingHeaderStyle BackColor="#246B61" />
+                 <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                 <SortedDescendingHeaderStyle BackColor="#15524A" />
+             </asp:GridView>
              <br />
              <br />
              <asp:SqlDataSource ID="SqlDataSourceCRUDprecios" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" DeleteCommand="DELETE FROM [precios] WHERE [id] = @id" InsertCommand="INSERT INTO [precios] ([fecha], [monto], [idProducto]) VALUES (@fecha, @monto, @idProducto)" SelectCommand="SELECT * FROM [precios]" UpdateCommand="UPDATE [precios] SET [fecha] = @fecha, [monto] = @monto, [idProducto] = @idProducto WHERE [id] = @id">
@@ -46,8 +63,6 @@
              </asp:SqlDataSource>
              <br />
              <asp:SqlDataSource ID="SqlDataSourceDropDownProductos" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" SelectCommand="SELECT * FROM [productos]"></asp:SqlDataSource>
-             <br />
-             <asp:SqlDataSource ID="SqlDataSourceDropDownPrecios" runat="server" ConnectionString="<%$ ConnectionStrings:Recuperatorio1ConnectionString %>" SelectCommand="SELECT * FROM [precios]"></asp:SqlDataSource>
         </div>
     </form>
 </body>
